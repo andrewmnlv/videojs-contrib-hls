@@ -14,6 +14,7 @@ import {MediaSource, URL} from 'videojs-contrib-media-sources';
 import m3u8 from './m3u8';
 import videojs from 'video.js';
 import MasterPlaylistController from './master-playlist-controller';
+import RenditionSelectionMixin from './rendition-mixin';
 
 /**
  * determine if an object a is differnt from
@@ -434,6 +435,9 @@ class HlsHandler extends Component {
       this.masterPlaylistController_.audioTracks_.forEach((track) => {
         this.tech_.audioTracks().addTrack(track);
       });
+
+      // Add the manual rendition mix-in to HlsHandler
+      RenditionSelectionMixin(this);
     });
 
     // the bandwidth of the primary segment loader is our best
